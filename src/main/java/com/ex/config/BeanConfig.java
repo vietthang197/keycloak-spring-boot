@@ -28,28 +28,6 @@ import java.util.Arrays;
 public class BeanConfig {
     @Bean
     public KeycloakSpringBootConfigResolver keycloakSpringBootConfigResolver() {
-//        return new KeycloakConfigResolver() {
-//
-//            private KeycloakDeployment keycloakDeployment;
-//
-//            @Override
-//            public KeycloakDeployment resolve(HttpFacade.Request facade) {
-//                if (keycloakDeployment != null) {
-//                    return keycloakDeployment;
-//                }
-//
-//                String path = "keycloak_bak.json";
-//                InputStream configInputStream = getClass().getClassLoader().getResourceAsStream(path);
-//
-//                if (configInputStream == null) {
-//                    throw new RuntimeException("Could not load Keycloak deployment info: " + path);
-//                } else {
-//                    keycloakDeployment = KeycloakDeploymentBuilder.build(configInputStream);
-//                }
-//
-//                return keycloakDeployment;
-//            }
-//        };
         return new KeycloakSpringBootConfigResolver();
     }
 

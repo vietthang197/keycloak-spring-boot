@@ -8,9 +8,9 @@ import org.springframework.context.annotation.Configuration;
 import java.lang.reflect.Field;
 
 @Configuration
-public class KeycloakUMAConfigResolver {
+public class KeycloakUMAConfig {
 
-    public KeycloakUMAConfigResolver(KeycloakSpringBootProperties keycloakSpringBootProperties) throws NoSuchFieldException, IllegalAccessException {
+    public KeycloakUMAConfig(KeycloakSpringBootProperties keycloakSpringBootProperties) throws NoSuchFieldException, IllegalAccessException {
         keycloakSpringBootProperties.getPolicyEnforcerConfig().setUserManagedAccess(new PolicyEnforcerConfig.UserManagedAccessConfig());
     }
 }

@@ -7,6 +7,7 @@ import org.keycloak.adapters.springsecurity.KeycloakSecurityComponents;
 import org.keycloak.adapters.springsecurity.authentication.KeycloakAuthenticationProvider;
 import org.keycloak.adapters.springsecurity.config.KeycloakWebSecurityConfigurerAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -26,9 +27,18 @@ import org.springframework.security.web.authentication.session.SessionAuthentica
 @Configuration
 @EnableWebSecurity
 @KeycloakConfiguration
-@EnableGlobalMethodSecurity(prePostEnabled=true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 @ComponentScan(basePackageClasses = KeycloakSecurityComponents.class)
 public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
+
+    @Value("${spring.security.oauth2.resourceserver.opaquetoken.client-id}")
+    private String clientId;
+
+    @Value("${spring.security.oauth2.resourceserver.opaquetoken.client-secret}")
+    private String clientSecret;
+
+    @Value("${spring.security.oauth2.resourceserver.opaquetoken.introspection-uri}")
+    private String introspectUri;
 
     /**
      * Registers the KeycloakAuthenticationProvider with the authentication manager.
@@ -53,10 +63,11 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception
-    {
+    protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
-        http
+        http.oauth2ResourceServer().opaqueToken(opaqueToken -> opaqueToken
+                .introspectionUri(introspectUri)
+                .introspectionClientCredentials(clientId, clientSecret)).and()
                 .authorizeRequests()
                 .anyRequest().authenticated();
     }
