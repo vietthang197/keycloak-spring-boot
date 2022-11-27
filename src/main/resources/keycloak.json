@@ -1,0 +1,11 @@
+{
+  "realm": "keycloak-god",
+  "auth-server-url" : "http://localhost:8080",
+  "resource" : "springboot-god",
+  "credentials": {
+    "secret": "dhbs10woDm0LA3xxqfDuHMM9535r9RE6"
+  },
+  "policy-enforcer": {
+    "user-managed-access" : {}
+  }
+}
